@@ -11,7 +11,6 @@ public class Paddle extends Actor
 {
     private int width;
     private int height;
-    private int dx;
     private int paddleSpeed;
     
     private boolean isPlayer = false;
@@ -32,7 +31,7 @@ public class Paddle extends Actor
         
         this.world = (PingWorld) this.getWorld();
         
-        dx = 1;
+        //dx = 1;
         paddleSpeed = 2;
         //createImage();
     }
@@ -44,19 +43,18 @@ public class Paddle extends Actor
     public void act() 
     {
         //Movement nest
-        if(isPlayer){
-            if(Greenfoot.isKeyDown("Left")){
-                if(!(getX() - width/2 <= 0))
-                {
+        if(isPlayer) {
+            if(Greenfoot.isKeyDown("Left")) {
+                if(!(getX() - width/2 <= 0)) {
                     setLocation(getX() - paddleSpeed, getY());
                 }
-            }else if(Greenfoot.isKeyDown("Right")){
-                if(!(getX() + width/2 >= getWorld().getWidth()))
+            } else if(Greenfoot.isKeyDown("Right")){
+                if (!(getX() + width/2 >= getWorld().getWidth()))
                 {
                     setLocation(getX() + paddleSpeed, getY());
                 }
             }
-        }else{
+        } else {
             if(checkIfAtEdge()){
                 replace();
             }
@@ -64,13 +62,13 @@ public class Paddle extends Actor
         }
         
         //Collision nest
-        if(isTouching(Ball.class)){
-            if(ball.getDirection() == Dir.DOWN){
-                if(isPlayer){
+        if(isTouching(Ball.class)) {
+            if(ball.getDirection() == Dir.DOWN) {
+                if(isPlayer) {
                     ball.wasHit();
                     ball.revertVertically();
                 }
-            }else if(ball.getDirection() == Dir.UP){
+            } else if(ball.getDirection() == Dir.UP) {
                 if(!isPlayer){
                     ball.revertVertically();
                 }
@@ -87,30 +85,4 @@ public class Paddle extends Actor
         int y = Greenfoot.getRandomNumber(PingWorld.WORLD_HEIGHT - (height + PingWorld.PADDING));
         setLocation(x, y);
     }
-    
-    /**
-     * Will rotate the paddle 180 degrees if the paddle is at worlds edge.
-     */
-    private void tryChangeDirection()
-    {
-        //Check to see if we are touching the outer boundaries of the world:
-        // IF we are touching the right boundary OR we are touching the left boundary:
-        if(getX() + width/2 >= getWorld().getWidth() || getX() - width/2 <= 0)
-        {
-            //Change our 'x' direction to the inverted direction:
-            dx = dx * -1;
-        }
-    }
-
-    /**
-     * Creates and sets an image for the paddle, the image will have the same dimensions as the paddles width and height.
-     */
-    private void createImage()
-    {
-        GreenfootImage image = new GreenfootImage(width, height);
-        image.setColor(Color.BLACK);
-        image.fill();
-        setImage(image);
-    }
-
 }

@@ -13,9 +13,6 @@ public class PingWorld extends World
     
     public static final int PADDING = 120;
     public static final int PLAYER_HEIGHT = 50;
-
-    private GreenfootSound bounce;
-    private GreenfootSound gameOver;
     
     private Ball ball;
     
@@ -29,9 +26,6 @@ public class PingWorld extends World
     public PingWorld(boolean gameStarted)
     {
         super(WORLD_WIDTH, WORLD_HEIGHT, 1);
-        
-        bounce = new GreenfootSound("bounce.wav");
-        gameOver = new GreenfootSound("go.wav");
         
         if (gameStarted)
         {
@@ -50,28 +44,14 @@ public class PingWorld extends World
             addObject(new Paddle(100, 20, false, ball), 60, randomHeight);
             addObject(new Paddle(100, 20, true, ball), 60, WORLD_HEIGHT - PLAYER_HEIGHT);
             
-            //DrawLevel();
         }
         else
         {
             Greenfoot.setWorld(new IntroWorld());
         }
     }
-
-    public void DrawLevel(){
-        //background.drawString("Level: " + ball.getLevel(), 100,100);
-    }
     
     public Label getLabel(){
         return label;
     }
-    
-    public void bounce(){
-        bounce.play();
-    }
-    
-    public void gameOver(){
-        gameOver.play();
-    }
-    
 }

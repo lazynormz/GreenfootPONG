@@ -44,19 +44,7 @@ public class Ball extends Actor
      */
     public Ball()
     {
-        //createImage();
         init();
-    }
-
-    /**
-     * Creates and sets an image of a black ball to this actor.
-     */
-    private void createImage()
-    {
-        GreenfootImage ballImage = new GreenfootImage(BALL_SIZE,BALL_SIZE);
-        ballImage.setColor(Color.BLACK);
-        ballImage.fillOval(0, 0, BALL_SIZE, BALL_SIZE);
-        setImage(ballImage);
     }
 
     /**
